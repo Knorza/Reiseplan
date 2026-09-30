@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#123f48">
+  <meta name="description" content="Reisen lokal planen und offline ansehen.">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./icon-192.png" sizes="192x192">
+  <link rel="stylesheet" href="./style.css">
+  <title>Reiseplan</title>
+  <script src="./app.js" defer></script>
+</head>
+<body>
+  <header class="topbar"><div class="wrap header-row"><div><span class="eyebrow">DEIN LOKALER REISEPLAN</span><h1>Unterwegs.</h1></div><div class="header-actions"><span id="network" class="status" role="status"></span><button id="install" type="button" hidden>App installieren</button></div></div></header>
+  <main class="wrap">
+    <section class="intro" aria-label="Reise auswählen"><div><h2>Meine Reisen</h2><p>Plane Tage, Züge und Wege. Alles bleibt auf diesem Gerät.</p></div><div class="trip-controls"><label for="trip-select" class="sr-only">Reise auswählen</label><select id="trip-select" aria-label="Reise auswählen"></select><button type="button" id="new-trip" class="primary">+ Neue Reise</button></div></section>
+    <section class="toolbar" aria-label="Reiseaktionen"><div><strong id="trip-title">Noch keine Reise</strong><span id="trip-count" class="muted"></span></div><div class="toolbar-actions"><button type="button" id="add-entry" class="primary">+ Eintrag</button><button type="button" id="rename-trip">Umbenennen</button><button type="button" id="delete-trip" class="danger">Reise löschen</button></div></section>
+    <div id="days" aria-live="polite"></div>
+    <footer><p>Offline gespeichert · SBB und Karten benötigen beim Öffnen eine Internetverbindung.</p><div class="footer-actions"><button id="export" type="button">Backup exportieren</button><label class="file-button" for="import">Backup importieren</label><input id="import" type="file" accept="application/json,.json" hidden></div><p class="small">Die Daten werden nicht synchronisiert. Erstelle regelmässig ein Backup, besonders vor dem Löschen von Browserdaten.</p></footer>
+  </main>
+  <dialog id="trip-dialog"><form id="trip-form" class="form"><h2 id="trip-dialog-title">Neue Reise</h2><label>Name der Reise<input name="name" maxlength="100" required placeholder="z. B. Herbstreise 2026"></label><div class="dialog-actions"><button type="button" data-close="trip-dialog">Abbrechen</button><button type="submit" class="primary">Speichern</button></div></form></dialog>
+  <dialog id="entry-dialog"><form id="entry-form" class="form"><h2 id="entry-dialog-title">Eintrag hinzufügen</h2><div class="form-grid"><label>Datum<input name="date" type="date" required></label><label>Uhrzeit<input name="time" type="time" required></label></div><label>Was genau?<input name="description" maxlength="240" required placeholder="z. B. Abfahrt Sargans"></label><label>Art des Eintrags<select name="type"><option value="train">Zugverbindung (SBB)</option><option value="walk">Fussweg (Maps)</option><option value="link">Anderer Link</option><option value="note">Nur Notiz</option></select></label><div id="train-fields" class="type-fields form-grid"><label>Startbahnhof<input name="origin" placeholder="Sargans"></label><label>Zielbahnhof<input name="destination" placeholder="Zürich HB"></label></div><div id="walk-fields" class="type-fields" hidden><label>Zieladresse<input name="address" placeholder="Strasse, Ort"></label></div><div id="link-fields" class="type-fields" hidden><label>Webadresse (https://…)<input name="url" type="url" placeholder="https://…"></label></div><p class="form-hint" id="entry-hint">Datum und Uhrzeit werden als Abfahrtszeit an SBB übergeben. Die Verbindung wird dort live gesucht.</p><div class="dialog-actions"><button type="button" data-close="entry-dialog">Abbrechen</button><button type="submit" class="primary">Speichern</button></div></form></dialog>
+</body>
+</html>
